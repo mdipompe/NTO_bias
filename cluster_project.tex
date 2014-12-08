@@ -1,0 +1,90 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{epstopdf}
+\usepackage{natbib}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\Hrule}{\rule{\linewidth}{0.3mm}}
+
+\titleformat{\section}{\normalsize \bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\itshape}{\thesubsection}{1em}{}
+\titlespacing\section{0pt}{4pt}{2pt}
+\titlespacing\subsection{0pt}{4pt}{2pt}
+
+
+\makeatletter% since there's an at-sign (@) in the command name
+\renewcommand{\@maketitle}{%
+  \parindent=0pt% don't indent paragraphs in the title block
+  \centering
+  {\LARGE \bfseries\textsc{\@title}}
+  \HRule\par%
+%  \textsc{\@author \hfill \@date}
+  \par
+}
+\makeatother% resets the meaning of the at-sign (@)
+
+\title{The ``Intrinsic'' Obscured Quasar Bias}
+\author{Michael DiPompeo}
+\date{\textit{To teach is to learn twice.  -Joseph Joubert}}
+
+\begin{document}
+   \maketitle% prints the title block
+
+
+\section*{Motivation}
+\noindent My recent work shows that the obscured quasar clustering amplitude (and therefore the bias) is higher than that of unobscured quasars.  This implies that the simple orientation model is incorrect.  But, surely some subset of the obscured sample is actually just unobscured objects seen at the right viewing angle so the ``torus'' makes them seem obscured.  Therefore, the bias of the quasars obscured for some other reason is actually larger than what I'm measuring.  The question is - can we use modeling to figure out what that bias is? 
+
+\section*{Method}
+\noindent We need to know three things:
+\begin{enumerate}
+\item The (intrinsic) clustering/bias of unobscured quasars. 
+\item The \textit{observed} clustering/bias of obscured quasars (combined torus and ``other'' obscured).
+\item The level of ``contamination'' in our obscured sample, i.e. how many objects are really just the same as unobscured objects but are seen through the torus?
+\end{enumerate}
+Numbers 1 and 2 come straight from my paper.  Number 3 can be determined from a given torus model.  In the simplest case, you just say that from 0 to $\phi$ degrees (0 being pole-on), you see an unobscured quasar, and from $\phi$ to 90 degrees it is obscured.  For a given sample size (the obscured sample in my paper for example), you just use the probability of seeing a quasar at a given $\phi$ (just a sine function in this simple case) to determine the number of torus obscured things ($N_{\textrm{torus}}$) and ``other'' obscured things ($N_{\textrm{other}}$).  You could of course make this more complicated, such as with a luminosity dependent opening angle, but we'll start simple.  Note that there is an implicit assumption here, that the obscured sample is unbiased in orientation in any way.  Maybe not true, but not obviously untrue either.
+
+To back out the ``intrinsic'' obscured quasar bias from what is observed, you follow these steps:
+\begin{enumerate}
+\item Make an initial guess of the intrinsic clustering properties of obscured quasars, and build a mock sample of size $N_{\textrm{other}}$ with these properties. 
+
+\item Make a mock sample of size $N_{\textrm{torus}}$ with clustering properties of unobscured quasars.
+
+\item Combine these samples, and measure their bias like you would with real data.
+
+\item Return to (1), and loop over some parameter space for the intrinsic clustering.
+
+\item Compare these results to the observed bias of the total obscured sample, and find the best match to see what the most likely ``intrinsic'' bias is.
+\end{enumerate}
+
+\section*{Mock samples}
+\noindent How do we build a mock sample with given clustering properites/bias?  We start with the definition of the angular autocorrelation function $\omega(\theta)$, where $\theta$ is the projected separation on the sky:
+\begin{equation}
+dP = n(1+\omega(\theta))d\Omega.
+\end{equation}
+$dP$ is the probability that a given pair of objects with number density $n$ (easily converted to number $N$ in our case, because we'll be using samples over the same areas) with separation $\theta$ lie within solid angle $d\Omega$.  We assume that the autocorrelation function is a power-law:
+\begin{equation}
+\omega(\theta) = A \theta^{\gamma}.
+\end{equation}
+The factors $A$ and $\gamma$ for the unobscured and total obscured samples come from my paper.  Integrating over larger and larger annuli (whose radii are determined by the binning of the real data we are comparing to (e.g.\ 4/dex) essentially gives us the number of objects to place at within $\theta_1 < \theta < \theta_2$ from each point:
+\begin{equation}
+P = \int n(1+A\theta^{\gamma})d\Omega 
+\end{equation}
+$$=n\left[\int d\Omega +A \int \theta^{\gamma} d\Omega \right]$$
+$$ =n\left[\int_{0}^{2\pi} \int_{\theta_1}^{\theta_2} \sin \theta d\theta d\phi + A\int_0^{2\pi} \int_{\theta_1}^{\theta_2} \theta^{\gamma} \sin \theta d\theta d\phi \right]$$
+$$ =2\pi n \left[\int_{\theta_1}^{\theta_2} \sin \theta d\theta + \int_{\theta_1}^{\theta_2} \theta^{\gamma} \sin \theta d\theta \right]$$
+$$ =2\pi n \left[\cos \theta_1 - \cos \theta_2 + \int_{\theta_1}^{\theta_2} \theta^{\gamma} \sin \theta d\theta \right]$$
+
+I think this last integral will have to be done numerically, but shouldn't be a problem.  I still haven't quite worked out in my head how to take this probability and apply it properly to generate a list of RA and Dec values of the mock sample, but it should be possible.  Once you can generate the mock samples, then the rest is just repeating with different inputs, and measuring the clustering like you would on real data.
+
+Maybe their is a purely analytical way to get the answer using the equations above, but it isn't immediately obvious to me.
+
+ \end{document}
