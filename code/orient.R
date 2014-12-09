@@ -1,3 +1,6 @@
+#Set of functions to work with viewing angles of quasars (or any other kind of
+#object with a disk-like shape). 
+
 #Determines number of face-on (theta < theta_c) objects expected
 n_face <- function(n,theta_c,down=FALSE,up=FALSE) {
   #Convert theta_c to radians
