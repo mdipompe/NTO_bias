@@ -1,6 +1,9 @@
 """
 Purpose:
-  Set of codes to work with viewing angles of quasars (or any other kind of object with a disk-like shape.  Given a number of objects and a critical angle where the object type changes (e.g. type 1 or 2 quasars), the "main" function will just tell you how many objects you have of each type.
+  Set of codes to work with viewing angles of quasars (or any other kind of 
+  object with a disk-like shape).  Given a number of objects and a critical 
+  angle where the object type changes (e.g. type 1 or 2 quasars), the "main" 
+  function will just tell you how many objects you have of each type.
 
 Input output angles are in degrees
 
@@ -10,9 +13,7 @@ Authors:
 History:
   12-8-14  Written
 """
-import os
 import sys
-import re
 import numpy as np
 from scipy.integrate import quad
 
@@ -30,10 +31,8 @@ def n_face(n,theta_c,down=0,up=0):
         num_face = np.floor(num_face)
     if up == 1:
         num_face = np.ceil(num_face)
-    if down == 0 and up == 0:
-        num_face = round(num_face)
 
-    return num_face
+    return round(num_face)
 
 #Determines number of edge-on (theta > theta_c) things
 def n_edge(n,theta_c,down=0,up=0):
@@ -49,10 +48,8 @@ def n_edge(n,theta_c,down=0,up=0):
         num_edge = np.floor(num_edge)
     if up == 1:
         num_edge = np.ceil(num_edge)
-    if down == 0 and up == 0:
-        num_edge = round(num_edge)
 
-    return num_edge
+    return round(num_edge)
 
 #Generates random viewing angles to face on (kind=1) or edge-on (kind=2) samples
 def viewing_angles(n,theta_c,kind=1,seed=0):
@@ -82,8 +79,6 @@ def main():
     print 'N_edge = ',nobsc
     print 'N_face = ',nunob
 
-    edge_vecs = viewing_angles(n, theta_c, kind=2)
-    face_vecs = viewing_angles(n, theta_c, kind=1)
 
 if __name__ == '__main__':
     main()
