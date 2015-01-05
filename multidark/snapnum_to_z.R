@@ -6,7 +6,7 @@ obsc <- read.table("halos_obscured.txt",header=TRUE,sep=",")
 unob <- read.table("halos_unobscured.txt",header=TRUE,sep=",")
 zinfo <- read.table("redshift_info.txt",header=TRUE,sep=",",col.names=c("id","snapnum","a","z"))
 
-snapnums_used <- zinfo$snapnum[zinfo$snapnum > 36]
+snapnums_used <- zinfo$snapnum[zinfo$snapnum > 34]
 
 obsc_z <- numeric(length = length(obsc$snapnum))
 unob_z <- numeric(length = length(unob$snapnum))
