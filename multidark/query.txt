@@ -1,5 +1,10 @@
+;;;To get obscured halo sample
 SELECT snapnum, hostFlag, x, y, z, Mvir, Mtot, Rvir
 FROM MDR1.BDMV WHERE snapnum > 34 AND HostFlag = -1 AND Mvir BETWEEN 1.538e13 AND 1.938e13
 
+;;;To get unobscured halo sample
 SELECT snapnum, hostFlag, x, y, z, Mvir, Mtot, Rvir
 FROM MDR1.BDMV WHERE snapnum > 34 AND HostFlag = -1 AND Mvir BETWEEN 4.929e12 AND 5.329e12
+
+;;;To get redshift information for snapnums
+SELECT DISTINCT * FROM MDR1.Redshifts ORDER BY snapnum DESC
