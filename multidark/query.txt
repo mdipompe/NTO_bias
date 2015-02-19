@@ -8,3 +8,15 @@ FROM MDR1.BDMV WHERE snapnum > 34 AND HostFlag = -1 AND Mvir BETWEEN 4.929e12 AN
 
 ;;;To get redshift information for snapnums
 SELECT DISTINCT * FROM MDR1.Redshifts ORDER BY snapnum DESC
+
+
+
+
+;;;To get single redshift slice (z=1) obscured sample
+SELECT snapnum, hostFlag, x, y, z, Mvir, Mtot, Rvir
+FROM MDR1.BDMV WHERE snapnum = 52 AND HostFlag = -1 AND Mvir BETWEEN 1.9498e12 AND 1.9498e14
+
+;;;To get single redshift slice (z=1) unobscured sample
+SELECT snapnum, hostFlag, x, y, z, Mvir, Mtot, Rvir
+FROM MDR1.BDMV WHERE snapnum = 52 AND HostFlag = -1 AND Mvir BETWEEN 6.9183e11 AND 6.9183e13
+
